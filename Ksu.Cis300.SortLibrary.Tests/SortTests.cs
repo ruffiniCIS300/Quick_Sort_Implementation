@@ -21,7 +21,7 @@ namespace Ksu.Cis300.SortLibrary.Tests
         {
             int[] data = new int[] { 1 };
             int[] result = new int[] { 1 };
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.EquivalentTo(data));
         }
 
@@ -34,7 +34,7 @@ namespace Ksu.Cis300.SortLibrary.Tests
             int[] data = new int[] { 7, 2 };
             int[] result = new int[2];
             data.CopyTo(result, 0);
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.Ordered.And.EquivalentTo(data));
         }
 
@@ -46,7 +46,7 @@ namespace Ksu.Cis300.SortLibrary.Tests
         {
             int[] data = new int[] { 2, 7 };
             int[] result = (int[])data.Clone();
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.Ordered.And.EquivalentTo(data));
         }
 
@@ -59,7 +59,7 @@ namespace Ksu.Cis300.SortLibrary.Tests
         {
             int[] data = new int[] { 7, 2, 5, 3 };
             int[] result = (int[])data.Clone();
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.Ordered.And.EquivalentTo(data));
         }
 
@@ -71,7 +71,7 @@ namespace Ksu.Cis300.SortLibrary.Tests
         {
             int[] data = new int[] { 7, 5, 3, 2 };
             int[] result = (int[])data.Clone();
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.Ordered.And.EquivalentTo(data));
         }
 
@@ -84,7 +84,7 @@ namespace Ksu.Cis300.SortLibrary.Tests
             int[] data = new int[] { 3, -7, 0, 11, -7, 8, 4, 8, -2, 6 };
             int[] result = new int[data.Length];
             data.CopyTo(result, 0);
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.Ordered.And.EquivalentTo(data));
         }
 
@@ -114,20 +114,20 @@ namespace Ksu.Cis300.SortLibrary.Tests
             List<int> data = new List<int>();
             List<int> result = new List<int>();
             Initialize(data, result, 100);
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.Ordered.And.EquivalentTo(data));
         }
 
-        [Test, Timeout(1000)]
         /// <summary>
         /// Tests sorting a random list of 30000 elements.
         /// </summary>
+        [Test, Timeout(1000)]
         public void TestFSort30000()
         {
             List<int> data = new List<int>();
             List<int> result = new List<int>();
             Initialize(data, result, 30000);
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.Ordered);
         }
 
@@ -140,8 +140,23 @@ namespace Ksu.Cis300.SortLibrary.Tests
             List<int> data = new List<int>();
             List<int> result = new List<int>();
             Initialize(data, result, 1000000);
-            Sort.MergeSort(result);
+            Sort.QuickSort(result);
             Assert.That(result, Is.Ordered);
+        }
+
+        /// <summary>
+        /// Tests sorting a pre-sorted array of 7,000 elements.
+        /// </summary>
+        [Test, Timeout(5000)]
+        public void TestHSort7000Sorted()
+        {
+            int[] data = new int[7000];
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = i;
+            }
+            Sort.QuickSort(data);
+            Assert.That(data, Is.Ordered);
         }
     }
 }

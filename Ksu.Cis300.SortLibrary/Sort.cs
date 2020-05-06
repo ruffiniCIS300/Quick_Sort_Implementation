@@ -1,5 +1,5 @@
 ﻿/* Sort.cs
- * Author: Rod Howell
+ * Author: Nick Ruffini
  */
 using System;
 using System.Collections.Generic;
@@ -140,6 +140,58 @@ namespace Ksu.Cis300.SortLibrary
         public static void MergeSort(IList<int> list)
         {
             MergeSort(list, 0, list.Count);
+        }
+
+        /// <summary>
+        /// Sorts the specified portion of the given IList using Quick Sort!
+        /// </summary>
+        /// <param name="list"> The list to sort </param>
+        /// <param name="start"> The first index of the portion to sort </param>
+        /// <param name="len"> The number of elements in the portion to sort </param>
+        private static void QuickSort(IList<int> list, int start, int len)
+        {
+            if (len > 1)
+            {
+                int afterL = start;
+                int beforeE = start + len - 1;
+                int beforeG = start + len - 1;
+
+                int pivot = list[start];
+
+                while (afterL <= beforeE)
+                {
+                    int element = list[beforeE];
+
+                    if (element < pivot)
+                    {
+                        Swap(list, beforeE, afterL);
+                        afterL++;
+                    }
+                    else if (element == pivot)
+                    {
+                        beforeE--;
+                    }
+                    else
+                    {
+                        Swap(list, beforeE, beforeG);
+                        beforeE--;
+                        beforeG--;
+                    }
+                }
+
+                QuickSort(list, start, afterL - start);
+                QuickSort(list, beforeG + 1, (start + len) - (beforeG + 1));
+
+            }
+        }
+
+        /// <summary>
+        /// Calls the above method to sort the entire list using Quick Sort
+        /// </summary>
+        /// <param name="list"> List that we are sorting! </param>
+        public static void QuickSort(IList<int> list)
+        {
+            QuickSort(list, 0, list.Count);
         }
     }
 }
